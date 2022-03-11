@@ -4,4 +4,4 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Is it cold out?
 
-Going to create a simple app where you are asked to set your prefrances about the whether and every day it will tell you if the whether is cold or not based on your preference
+Going to create a simple app where you are asked to set your preferences about the weather and every day it will tell you if the weather is cold or not based on your preference.

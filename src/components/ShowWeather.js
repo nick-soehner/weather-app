@@ -7,12 +7,14 @@ const storage = localStorage;
     console.log(storage.length);
 }; */
 
-export class ShowWhether extends React.Component {
+export class ShowWeather extends React.Component {
     render() {
         return (
             <div>
                 <h1>{storage.cold}</h1>
-                <button onClick={this.props.handleChange}>clear</button>
+                <button onClick={this.props.handleChange}>
+                    Update Preferences
+                </button>
             </div>
         );
     }

@@ -1,7 +1,7 @@
 import "./App.css";
 import React from "react";
 import { GatherInfo } from "./components/GatherInfo";
-import { ShowWhether } from "./components/ShowWhether";
+import { ShowWeather } from "./components/ShowWeather";
 
 const storage = localStorage;
 
@@ -11,7 +11,7 @@ class App extends React.Component {
 
         this.state = {
             showGatherInfo: true,
-            showShowWhether: false,
+            showShowWeather: false,
         };
 
         this.handleLoad = this.handleLoad.bind(this);
@@ -29,7 +29,7 @@ class App extends React.Component {
     handleLoad() {
         if (storage.length > 0) {
             this.setState({ showGatherInfo: !this.state.showGatherInfo });
-            this.setState({ showShowWhether: !this.state.showShowWhether });
+            this.setState({ showShowWeather: !this.state.showShowWeather });
             console.log(storage.length);
         } else {
             console.log(storage.length);
@@ -40,11 +40,11 @@ class App extends React.Component {
         if (storage.length > 0) {
             storage.clear();
             this.setState({ showGatherInfo: !this.state.showGatherInfo });
-            this.setState({ showShowWhether: !this.state.showShowWhether });
+            this.setState({ showShowWeather: !this.state.showShowWeather });
             console.log(storage.length);
         } else {
             this.setState({ showGatherInfo: !this.state.showGatherInfo });
-            this.setState({ showShowWhether: !this.state.showShowWhether });
+            this.setState({ showShowWeather: !this.state.showShowWeather });
             console.log(storage.length);
         }
     }
@@ -54,8 +54,8 @@ class App extends React.Component {
             <div className="App">
                 <header className="App-header">
                     {this.state.showGatherInfo && <GatherInfo />}
-                    {this.state.showShowWhether && (
-                        <ShowWhether handleChange={this.handleChange} />
+                    {this.state.showShowWeather && (
+                        <ShowWeather handleChange={this.handleChange} />
                     )}
                 </header>
             </div>

@@ -22,7 +22,7 @@ export class GatherInfo extends React.Component {
         this.perfectTempChange = this.perfectTempChange.bind(this);
     }
 
-    handleSubmit(e) {
+    handleSubmit() {
         alert("Thank you!");
         storage.clear()
         console.log(storage);
