@@ -22,16 +22,15 @@ export class GatherInfo extends React.Component {
         this.perfectTempChange = this.perfectTempChange.bind(this);
     }
 
-    handleSubmit() {
-        alert("Thank you!");
-        storage.clear()
-        console.log(storage);
+    handleSubmit(e) {
+        e.preventDefault();
+        storage.clear();
         storage.setItem("warm", this.state.warm);
         storage.setItem("cold", this.state.cold);
         storage.setItem("burning", this.state.burning);
         storage.setItem("freezing", this.state.freezing);
         storage.setItem("perfectTemp", this.state.perfectTemp);
-        console.log(storage);
+        this.props.setStorage();
     }
 
     warmChange(e) {

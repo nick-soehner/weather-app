@@ -15,7 +15,8 @@ class App extends React.Component {
         };
 
         this.handleLoad = this.handleLoad.bind(this);
-        this.handleChange = this.handleChange.bind(this);
+        this.clearStorage = this.clearStorage.bind(this);
+        this.setStorage = this.setStorage.bind(this);
     }
 
     componentDidMount() {
@@ -36,26 +37,31 @@ class App extends React.Component {
         }
     }
 
-    handleChange() {
+    clearStorage() {
         if (storage.length > 0) {
             storage.clear();
-            this.setState({ showGatherInfo: !this.state.showGatherInfo });
-            this.setState({ showShowWeather: !this.state.showShowWeather });
-            console.log(storage.length);
-        } else {
             this.setState({ showGatherInfo: !this.state.showGatherInfo });
             this.setState({ showShowWeather: !this.state.showShowWeather });
             console.log(storage.length);
         }
     }
 
+    setStorage() {
+        this.setState({ showGatherInfo: !this.state.showGatherInfo });
+        this.setState({ showShowWeather: !this.state.showShowWeather });
+
+        console.log(storage.length);
+    }
+
     render() {
         return (
             <div className="App">
                 <header className="App-header">
-                    {this.state.showGatherInfo && <GatherInfo />}
+                    {this.state.showGatherInfo && (
+                        <GatherInfo setStorage={this.setStorage} />
+                    )}
                     {this.state.showShowWeather && (
-                        <ShowWeather handleChange={this.handleChange} />
+                        <ShowWeather clearStorage={this.clearStorage} />
                     )}
                 </header>
             </div>
