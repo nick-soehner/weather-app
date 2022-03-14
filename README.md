@@ -18,3 +18,11 @@ Going to create a simple app where you are asked to set your preferences about t
     now need to use localStorage to compare the values for their locations.
     make sure if your local storage is set but location isnt it still asks.
     find a way to not track location?? set location?
+
+
+3/13/22
+    I think that showWeather shoudl become where i collect the city
+    create another component that has all info and uses it
+    pass state of showWeather to another component(state holds the city name and the weather info)
+    new component will be a presentaional comp
+    
