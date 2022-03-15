@@ -31,7 +31,7 @@ class App extends React.Component {
         if (storage.length > 0) {
             this.setState({ showGatherInfo: !this.state.showGatherInfo });
             this.setState({ showShowWeather: !this.state.showShowWeather });
-            console.log(storage.length);
+            /* console.log(storage.length); */
         } else {
             console.log(storage.length);
         }

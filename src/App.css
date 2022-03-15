@@ -1,3 +1,7 @@
+:root {
+    --icon-color: white;
+}
+
 *,
 *::after,
 *::before {
@@ -20,7 +24,7 @@
     align-items: center;
     justify-content: center;
     font-size: 1.5em;
-    color: white;
+    color: var(--icon-color);
 }
 
 /* ================= GATHER INFO ================= */
@@ -37,7 +41,7 @@
     margin-top: 30px;
 }
 
-form {
+.info-form {
     height: 95%;
     display: flex;
     flex-direction: column;
@@ -50,7 +54,7 @@ form {
     justify-content: center;
 }
 
-input {
+.gather-input {
     margin-right: 10px;
 }
 
@@ -64,6 +68,18 @@ input {
 
 /* ================= SHOW WHEATHER ================= */
 
+.show-weather {
+    height: 95vh;
+    background-color: #282c34ee;
+    padding: 40px;
+    border-radius: 50px;
+    width: 488px; /* ****************************** */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .update-btn {
     width: 150px;
     height: 40px;
@@ -72,25 +88,64 @@ input {
     font-size: 0.6em;
 }
 
+.hint {
+    font-size: 0.65em;
+    background-color: rgba(255, 0, 0, 0.315);
+    padding: 2px 7px;
+}
 
+.enter-city {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    height: 25vh;
+}
 
+.enter-city-submit-btn {
+    width: 100px;
+    height: 30px;
+    border-radius: 50px;
+    border: none;
+    font-size: 0.6em;
+}
 
+.enter-city input {
+    text-align: center;
+    height: 50px;
+    border: none;
+    border-radius: 10px;
+}
 
+/* ================= SHOW DATA ================= */
 
+img {
+    width: 100px;
+    height: 100px;
+}
+
+.current-temp {
+    font-size: 3em;
+    margin: 40px 0;
+}
+
+.city-name {
+    font-size: 2em;
+}
 
 /* ================= MEDIA ================= */
 
 @media only screen and (max-width: 500px) {
-  .gather-info {
-    height: 100vh;
-    border-radius: 0;
-  }
+    .gather-info {
+        height: 100vh;
+        border-radius: 0;
+    }
 
-  h2 {
-    font-size: 1em;
-  }
+    h2 {
+        font-size: 1em;
+    }
 
-  p {
-    font-size: .8em;
-  }
+    p {
+        font-size: 0.8em;
+    }
 }

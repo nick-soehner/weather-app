@@ -9,7 +9,7 @@ export class GatherInfo extends React.Component {
         this.state = {
             warm: "75",
             burning: "90",
-            cold: "45",
+            cold: "35",
             freezing: "10",
             perfectTemp: "60",
         };
@@ -63,12 +63,13 @@ export class GatherInfo extends React.Component {
             <div className="gather-info">
                 <div className="form">
                     <h2>Please enter some info...</h2>
-                    <form onSubmit={this.handleSumbit}>
+                    <form onSubmit={this.handleSumbit} className="info-form">
                         <p>
                             What would you consider <strong>warm?</strong>
                         </p>
                         <div className="form-item">
                             <input
+                                className="gather-input"
                                 type="range"
                                 min="0"
                                 max="100"
@@ -82,6 +83,7 @@ export class GatherInfo extends React.Component {
                         </p>
                         <div className="form-item">
                             <input
+                                className="gather-input"
                                 type="range"
                                 min="0"
                                 max="100"
@@ -95,6 +97,7 @@ export class GatherInfo extends React.Component {
                         </p>
                         <div className="form-item">
                             <input
+                                className="gather-input"
                                 type="range"
                                 min="0"
                                 max="100"
@@ -108,6 +111,7 @@ export class GatherInfo extends React.Component {
                         </p>
                         <div className="form-item">
                             <input
+                                className="gather-input"
                                 type="range"
                                 min="0"
                                 max="100"
@@ -122,6 +126,7 @@ export class GatherInfo extends React.Component {
                         </p>
                         <div className="form-item">
                             <input
+                                className="gather-input"
                                 type="range"
                                 min="0"
                                 max="100"

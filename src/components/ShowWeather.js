@@ -1,4 +1,5 @@
 import React from "react";
+import { ShowData } from "./ShowData";
 
 const storage = localStorage;
 const APIKEY = process.env.REACT_APP_API_KEY;
@@ -8,8 +9,9 @@ export class ShowWeather extends React.Component {
         super(props);
 
         this.state = {
-            data: "false",
+            data: false,
             city: "",
+            state: "",
             lat: "",
             long: "",
             enterLocation: false,
@@ -34,24 +36,13 @@ export class ShowWeather extends React.Component {
     }
 
     getLocation() {
-        let long;
-        let lat;
-
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
                 (position) => {
-                    long = position.coords.longitude;
-                    lat = position.coords.latitude;
-                    const dataUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${long}&units=imperial&appid=${APIKEY}`;
-                    fetch(dataUrl)
-                        .then((result) => result.json())
-                        .then((info) => {
-                            /* console.log(info); */
-                            this.setState({ data: info });
-                            this.setState({ lat: lat });
-                            this.setState({ long: long });
-                            this.getCity();
-                        });
+                    this.setState({ long: position.coords.longitude });
+                    this.setState({ lat: position.coords.latitude });
+                    this.getData();
+                    this.getCity();
                 },
                 (error) => {
                     if (error.code == error.PERMISSION_DENIED) {
@@ -59,15 +50,31 @@ export class ShowWeather extends React.Component {
                         this.setState({
                             enterLocation: !this.state.enterLocation,
                         });
-                        console.log(this.state.enterLocation);
                     }
                 }
             );
         }
     }
 
+    enterLocation() {
+        const url = `http://api.openweathermap.org/geo/1.0/direct?q=${this.state.city}&limit=5&appid=${APIKEY}`;
+        fetch(url)
+            .then((result) => result.json())
+            .then((info) => {
+                /* console.log(info); */
+                this.setState({ city: info[0].name });
+                this.setState({ state: info[0].state });
+
+                this.setState({ lat: info[0].lat });
+                this.setState({ long: info[0].lon });
+
+                this.setState({ enterLocation: !this.state.enterLocation });
+                this.getData();
+            });
+    }
+
     getData() {
-        const dataUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${this.state.lat}&lon=${this.state.long}&units=imperial&appid=${APIKEY}`;
+        const dataUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${this.state.lat}&lon=${this.state.long}&exclude=minutely,alerts&units=imperial&appid=${APIKEY}`;
         fetch(dataUrl)
             .then((result) => result.json())
             .then((info) => {
@@ -76,33 +83,14 @@ export class ShowWeather extends React.Component {
             });
     }
 
-    enterLocation() {
-        let long;
-        let lat;
-
-        const url = `http://api.openweathermap.org/geo/1.0/direct?q=${this.state.city}&limit=5&appid=${APIKEY}`;
-        fetch(url)
-            .then((result) => result.json())
-            .then((info) => {
-                console.log(info);
-                this.setState({ city: info[0].name });
-                long = info[0].lon;
-                lat = info[0].lat;
-
-                this.setState({ lat: lat });
-                this.setState({ long: long });
-
-                this.setState({ enterLocation: !this.state.enterLocation });
-                this.getData();
-            });
-    }
-
     getCity() {
         const cityUrl = `http://api.openweathermap.org/geo/1.0/reverse?lat=${this.state.lat}&lon=${this.state.long}&limit=1&appid=${APIKEY}`;
         fetch(cityUrl)
             .then((result) => result.json())
             .then((info) => {
+                /* console.log(info); */
                 this.setState({ city: info[0].name });
+                this.setState({ state: info[0].state });
             });
     }
 
@@ -113,25 +101,42 @@ export class ShowWeather extends React.Component {
 
     render() {
         return (
-            <div>
-                <p>{this.state.lat}</p>
-                <p>{this.state.long}</p>
+            <div className="show-weather">
+                {/* only shows when geolocation is blocked */}
                 {this.state.enterLocation && (
-                    <form>
-                        <input
-                            type="text"
-                            value={this.state.city}
-                            onChange={this.cityEntry}
-                            placeholder="City"
-                        />
-                        <button
-                            className="submit-btn"
-                            onClick={this.handleSubmit}
-                        >
-                            Submit City
-                        </button>
-                    </form>
+                    <div>
+                        <form className="enter-city">
+                            <input
+                                type="text"
+                                value={this.state.city}
+                                onChange={this.cityEntry}
+                                placeholder="Enter City"
+                            />
+                            <button
+                                className="enter-city-submit-btn"
+                                onClick={this.handleSubmit}
+                            >
+                                Submit City
+                            </button>
+                            <p className="hint">
+                                For more precise weather enable location
+                                services.
+                            </p>
+                        </form>
+                    </div>
                 )}
+
+                {/* if data is loaded will ShowData if not will show loading*/}
+                {this.state.data ? (
+                    <ShowData
+                        city={this.state.city}
+                        data={this.state.data}
+                        state={this.state.state}
+                    />
+                ) : (
+                    <span>Loading...</span>
+                )}
+
                 <button
                     className="update-btn"
                     onClick={this.props.clearStorage}
