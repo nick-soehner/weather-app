@@ -32,3 +32,11 @@ Going to create a simple app where you are asked to set your preferences about t
 3/14/22
     Created a presentaional comp
     need to now just use the data and compare to given info and make the weather report
+
+    (p2)
+    created a display page.
+    maybe to a few random saying so you don't get the same on every time
+    make it look a little nicer
+    move some icons and words around
+    make sure its reponsive.
+    VERY PROUD OF THIS PROJECT SO FAR!

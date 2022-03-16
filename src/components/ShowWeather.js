@@ -1,5 +1,6 @@
 import React from "react";
 import { ShowData } from "./ShowData";
+import { UpcomingWeather } from "./UpcomingWeather";
 
 const storage = localStorage;
 const APIKEY = process.env.REACT_APP_API_KEY;
@@ -128,21 +129,27 @@ export class ShowWeather extends React.Component {
 
                 {/* if data is loaded will ShowData if not will show loading*/}
                 {this.state.data ? (
-                    <ShowData
-                        city={this.state.city}
-                        data={this.state.data}
-                        state={this.state.state}
-                    />
+                    <div className="show-weather-container">
+                        <div className="show-weather-wrapper">
+                            <ShowData
+                                city={this.state.city}
+                                data={this.state.data}
+                                state={this.state.state}
+                            />
+                        </div>
+                        <div className="weather-forecast">
+                            <UpcomingWeather data={this.state.data} />
+                            <button
+                                className="update-btn"
+                                onClick={this.props.clearStorage}
+                            >
+                                Update Preferences
+                            </button>
+                        </div>
+                    </div>
                 ) : (
                     <span>Loading...</span>
                 )}
-
-                <button
-                    className="update-btn"
-                    onClick={this.props.clearStorage}
-                >
-                    Update Preferences
-                </button>
             </div>
         );
     }

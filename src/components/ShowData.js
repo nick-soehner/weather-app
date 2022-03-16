@@ -1,6 +1,5 @@
 import React from "react";
 import IMAGES from "./icons/index.js";
-import unknown from "./icons/01d.png";
 
 const storage = localStorage;
 
@@ -12,6 +11,7 @@ export class ShowData extends React.Component {
             currentTemp: Math.floor(this.props.data.current.temp),
             preference: "",
             icon: "",
+            day: [],
         };
 
         this.setPreference = this.setPreference.bind(this);
@@ -19,34 +19,12 @@ export class ShowData extends React.Component {
     }
 
     componentDidMount() {
-        /* console.log(this.props.data.current.temp); */
         this.setPreference();
         this.setIcon();
     }
 
     setPreference() {
         let currentTemp = this.state.currentTemp;
-        /* switch (currentTemp) {
-            case (currentTemp == storage.perfectTemp):
-                this.setState({ preference: "perfect" });
-                break;
-            case currentTemp >= storage.burning:
-                this.setState({ preference: "burning" });
-                break;
-            case currentTemp >= storage.warm:
-                this.setState({ preference: "warm" });
-                break;
-            case currentTemp >= storage.cold:
-                this.setState({ preference: "cold" });
-                break;
-            case currentTemp >= storage.freezing:
-                this.setState({ preference: "freezing" });
-                break;
-            default:
-                this.setState({ preference: "boobs" });
-                break;
-        } */
-
         if (currentTemp == storage.perfectTemp) {
             this.setState({
                 preference:
@@ -79,24 +57,48 @@ export class ShowData extends React.Component {
             });
         }
 
-        console.log(this.state.currentTemp);
+        /* console.log(this.state.currentTemp); */
     }
 
     setIcon() {
         const icon = this.props.data.current.weather[0].icon;
-        this.setState({ icon: IMAGES[`${icon}`] });
+        this.setState({ icon: icon });
+        console.log(this.state.icon)
     }
 
     render() {
         return (
-            <div>
-                <h1 className="city-name">{this.props.city}</h1>
-                <p>{this.props.state}</p>
-                <h2 className="current-temp">{this.state.currentTemp}°F</h2>
-                <p>{this.state.preference}</p>
-                <div className="weather-icon">
-                    <img src={this.state.icon} alt="" />
+            <div className="show-data">
+                <div className="tempbox">
+                    <h1 className="city-name">{this.props.city}</h1>
+                    <p>{this.props.state}</p>
+                    <h2 className="current-temp">{this.state.currentTemp}°F</h2>
+                    <div className="weather-info">
+                        <div className="info-box">
+                            <img
+                                src={IMAGES[`${this.state.icon}`]}
+                                alt=""
+                                className="current-weather-icon"
+                            />
+                            <p className="weather-desc">
+                                {this.props.data.current.weather[0].description}
+                            </p>
+                        </div>
+                        <div className="info-box">
+                            <img
+                                src={IMAGES["50d"]}
+                                alt=""
+                                className="current-weather-icon"
+                            />
+                            <p>
+                                {Math.floor(this.props.data.current.wind_speed)}{" "}
+                                mph
+                            </p>
+                        </div>
+                    </div>
                 </div>
+
+                <p>{this.state.preference}</p>
             </div>
         );
     }
